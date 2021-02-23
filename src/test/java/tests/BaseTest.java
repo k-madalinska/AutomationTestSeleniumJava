@@ -14,11 +14,10 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
     }
 
-
     @AfterEach
     public void teardown() {
         if (driver != null) {
-         //   driver.quit();
+            driver.quit();
         }
     }
 }

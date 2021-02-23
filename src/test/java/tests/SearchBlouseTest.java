@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.SearchPage;
 import utils.PageTitleUtils;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SearchBlouseTest extends BaseTest {

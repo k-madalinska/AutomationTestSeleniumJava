@@ -1,5 +1,7 @@
 package tests;
 
+import com.github.javafaker.Faker;
+import enums.*;
 import model.Address;
 import model.PersonalInformation;
 import org.junit.jupiter.api.*;
@@ -14,6 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SignInTest extends BaseTest {
     private TopMenuPage topMenuPage;
     private SignInPage signInPage;
+
+    Faker faker = new Faker();
+    String emailFaker = faker.name().firstName() + "@onet.pl";
 
     @BeforeEach
     public void setupTest() {
@@ -39,7 +44,7 @@ public class SignInTest extends BaseTest {
     @Order(2)
     public void shouldNotAllowedToCreateAnAccountWithInValidEmail() {
         topMenuPage.clickOnSignInLink();
-        signInPage.enterEmailSignIn("test.pla");
+        signInPage.enterEmailSignIn("test.pl");
         signInPage.clickOnCreateAnAccountButton();
 
         assertThat(signInPage.isAlertDangerBoxRegisterAccountDisplayed()).isTrue();
@@ -50,14 +55,21 @@ public class SignInTest extends BaseTest {
     @Order(3)
     public void shouldAllowedToSignInWithValidData() {
         topMenuPage.clickOnSignInLink();
-        signInPage.enterEmailSignIn("tes12t@tesxzstaaala.pll");
+        signInPage.enterEmailSignIn(emailFaker);
         signInPage.clickOnCreateAnAccountButton();
         signInPage.clickOnRadioGenderMrs();
+
         PersonalInformation personalInformation = new PersonalInformation();
         personalInformation.setFirstName("Kasia");
         personalInformation.setLastName("Test");
         personalInformation.setPassword("123456");
+
+        personalInformation.setDayDateOfBirth(DayOfBirth.TEN);
+        personalInformation.setMonthDateOfBirth(MonthOfBirth.MAY);
+        personalInformation.setYearDateOfBirth(YearOfBirth.Y2000);
+
         signInPage.sendPersonalFullInformation(personalInformation);
+
         signInPage.clickOnNewsletter();
         assertThat(signInPage.isSignInPageDisplayed()).isTrue();
 
@@ -66,6 +78,8 @@ public class SignInTest extends BaseTest {
         address.setAddress("Al. Jerozolimskie 100 ");
         address.setCity("Warsaw");
         address.setPostCode("12345");
+        address.setCountry(Country.UNITED_STATES);
+        address.setState(State.OREGON);
         address.setMobilePhone("123456789");
         address.setAdditionalInformation("building behind the post office, third floor");
         signInPage.sendFullAddressInformation(address);

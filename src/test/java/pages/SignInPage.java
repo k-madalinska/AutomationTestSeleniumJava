@@ -2,12 +2,10 @@ package pages;
 
 import model.Address;
 import model.PersonalInformation;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import utils.ElementVisibleUtils;
 
 public class SignInPage extends BasePage {
@@ -134,23 +132,18 @@ public class SignInPage extends BasePage {
         firstNameInput.sendKeys(personalInformation.getFirstName());
         lastNameInput.sendKeys(personalInformation.getLastName());
         passwordInput.sendKeys(personalInformation.getPassword());
-        Select daySelect = new Select(this.daySelect);
-        daySelect.selectByIndex(2);
-        Select monthSelect = new Select(this.monthSelect);
-        monthSelect.selectByVisibleText("May ");
-        Select yearSelect = new Select(this.yearSelect);
-        yearSelect.selectByValue("1999");
+        daySelect.sendKeys(personalInformation.getDayDateOfBirth().getValue());
+        monthSelect.sendKeys(personalInformation.getMonthDateOfBirth().getValue());
+        yearSelect.sendKeys(personalInformation.getYearDateOfBirth().getValue());
     }
 
     public void sendFullAddressInformation(Address address) {
         companyInput.sendKeys(address.getCompany());
         addressInput.sendKeys(address.getAddress());
         cityInput.sendKeys(address.getCity());
-        Select stateSelect = new Select(this.stateSelect);
-        stateSelect.selectByIndex(10);
+        stateSelect.sendKeys(address.getState().getValue());
         postCodeInput.sendKeys(address.getPostCode());
-        Select countrySelect = new Select(this.countrySelect);
-        countrySelect.selectByIndex(1);
+        countrySelect.sendKeys(address.getCountry().getValue());
         additionalInformationTextArea.sendKeys(address.getAdditionalInformation());
         mobileInput.sendKeys(address.getMobilePhone());
     }

@@ -1,10 +1,8 @@
 package pages;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.ElementVisibleUtils;
 
 public class SearchPage extends BasePage {
@@ -27,6 +25,7 @@ public class SearchPage extends BasePage {
     public SearchPage(WebDriver driver) {
         super(driver);
     }
+
     public String resultTextProductPriceBlouse() {
         return resultProductPriceBlouse.getText();
     }
@@ -43,7 +42,6 @@ public class SearchPage extends BasePage {
         searchButton.click();
     }
 
-
     public void enterSearchInput(String product) {
         searchInput.sendKeys(product);
     }
@@ -53,6 +51,6 @@ public class SearchPage extends BasePage {
     }
 
     private boolean isAlertBoxDisplayed(WebElement box) {
-        return  ElementVisibleUtils.isElementVisible(box, wait);
+        return ElementVisibleUtils.isElementVisible(box, wait);
     }
 }

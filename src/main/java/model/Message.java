@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class Message {
+
     private MessageSubject subject;
     private String email;
     private String orderReference;
